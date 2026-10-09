@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import "./emoji.css";
 
 type EMOJI_KEYS = "happy" | "sick" | "dead";
@@ -12,7 +12,8 @@ const EMOJI_MAP = new Map<EMOJI_KEYS, string>([
 
 export default function Emoji() {
 
-    const [status, setStatus] = useState<EMOJI_KEYS>('sick')
+    const [status, setStatus] = useState<EMOJI_KEYS>('sick');
+    let count = useRef(0);
 
     function happyClick() {
         console.log("Status: " + status);
@@ -29,6 +30,22 @@ export default function Emoji() {
         setStatus("dead");
         console.log("Status: " + status);
     }
+    function nextClick() {
+       switch (status) {
+        case "happy":
+            setStatus("sick");
+            break;
+        case "sick":
+            setStatus("dead");
+            break;
+        case "dead":
+            setStatus("happy");
+            break;
+        default:
+            setStatus("happy");
+            break;
+       }
+    }
 
     return (
         <>
@@ -39,6 +56,7 @@ export default function Emoji() {
                 <button onClick={happyClick}>Happy</button>
                 <button onClick={sickClick}>Sick</button>
                 <button onClick={deadClick}>Dead</button>
+                <button onClick={nextClick}>Ciclo</button>
             </div>
 
         </>
