@@ -4,6 +4,8 @@
     width: 100px;
     height: 20px;
     margin-top: 100px;
+}
 
-
+.inativo{
+    filter:grayscale(100%);
 }
