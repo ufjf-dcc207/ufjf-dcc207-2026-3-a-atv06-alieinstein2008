@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import "./emoji.css";
+import Atributo from "./atributo";
 
 type EMOJI_KEYS = "happy" | "sick" | "dead";
 
@@ -31,20 +32,20 @@ export default function Emoji() {
         console.log("Status: " + status);
     }
     function nextClick() {
-       switch (status) {
-        case "happy":
-            setStatus("sick");
-            break;
-        case "sick":
-            setStatus("dead");
-            break;
-        case "dead":
-            setStatus("happy");
-            break;
-        default:
-            setStatus("happy");
-            break;
-       }
+        switch (status) {
+            case "happy":
+                setStatus("sick");
+                break;
+            case "sick":
+                setStatus("dead");
+                break;
+            case "dead":
+                setStatus("happy");
+                break;
+            default:
+                setStatus("happy");
+                break;
+        }
     }
 
     return (
@@ -52,6 +53,7 @@ export default function Emoji() {
             <div className="emoji">
                 {EMOJI_MAP.get(status) || "❔"}
             </div>
+            <Atributo></Atributo>
             <div className="acoes">
                 <button onClick={happyClick}>Happy</button>
                 <button onClick={sickClick}>Sick</button>
