@@ -1,14 +1,13 @@
 import { useState } from "react";
-import "./emoji.css";
+import "./Emoji.css";
 import Atributo from "./atributo";
 import type { AtributoType, EMOJI_KEYS, EmojiType } from "./types";
 
 const EMOJI_MAP = new Map<EMOJI_KEYS, string>([
-    ["happy", "😁"],
+    ["happy", "🙂"],
     ["sick", "🤢"],
-    ["dead", "😵"]
+    ["dead", "😵"],
 ]);
-
 
 export default function Emoji() {
 
@@ -20,22 +19,20 @@ export default function Emoji() {
         vida: 5
     });
 
+
     function alimentarClick() {
         if (emoji.vida === 0) return;
         const novoEmoji = structuredClone(emoji);
         novoEmoji.comida = Math.min(5, emoji.comida + 1) as AtributoType;
         setEmoji(novoEmoji);
     }
-
     function hidratarClick() {
         if (emoji.vida === 0) return;
         setEmoji({ ...emoji, agua: Math.min(5, emoji.agua + 1) as AtributoType });
     }
-
     function altenarLuzClick() {
         setEmoji({ ...emoji, luz: !emoji.luz });
     }
-
     function cicloClick() {
         if (emoji.vida === 0) return;
 
@@ -59,6 +56,7 @@ export default function Emoji() {
             newEmoji.energia = Math.min(5, newEmoji.energia + 1) as AtributoType;
         }
         setEmoji(newEmoji);
+
     }
 
     let status = EMOJI_MAP.get("happy");
@@ -69,12 +67,11 @@ export default function Emoji() {
         status = EMOJI_MAP.get("dead");
     }
 
+
     return (
-        <>
-            <div className="emoji">
-                <div className="face">
-                    {status}
-                </div>
+        <div className="emoji">
+            <div className="face">
+                {status}
             </div>
             <div className="atributos">
                 <Atributo icone="❤️" valor={emoji.vida} />
@@ -87,8 +84,8 @@ export default function Emoji() {
                 <button onClick={alimentarClick}>Alimentar</button>
                 <button onClick={hidratarClick}>Hidratar</button>
                 <button onClick={altenarLuzClick}>{emoji.luz ? 'Desligar' : 'Ligar'} Luz</button>
+                <button onClick={cicloClick}>Ciclo</button>
             </div>
-
-        </>
-    )
+        </div>
+    );
 }
