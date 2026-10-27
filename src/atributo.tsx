@@ -1,21 +1,25 @@
 import { useState } from "react";
 import "./atributo.css";
 
-export default function Atributo({ icone }: { icone: string }) {
+type AtributoProps = {
+    icone: string;
+}
+export default function Atributo({ icone }: AtributoProps) {
 
     const [valor, setValor] = useState<number>(0);
 
-    const incremeta = () => {
-        valor < 5 ? setValor(valor + 1) : setValor(0);
+    function atualizaValor(prev: number) {
+        if (prev === 5) return 0;
+        return prev + 1;
     }
 
     return (
         <div className="atributo">
-            {valor}{icone.repeat(valor)}
-            <span className="inativo">
-                {icone.repeat(5-valor)}
-            </span>
-            <button onClick={incremeta}>+</button>
-        </div>
+            {valor}{icone.repeat(valor)}<span className="inativo">{icone.repeat(5 - valor)}</span>
+            <button onClick={() => {
+                setValor(atualizaValor);
+                setValor(atualizaValor);
+            }}>+</button>
+        </div >
     )
 }
