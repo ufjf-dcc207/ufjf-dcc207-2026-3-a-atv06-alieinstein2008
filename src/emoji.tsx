@@ -18,6 +18,7 @@ export default function Emoji() {
     const [energia, setEnergia] = useState<number>(4);
     const [comida, setComida] = useState<number>(1);
     const [agua, setAgua] = useState<number>(2);
+    const [luz, setLuz] = useState<boolean>(true);
 
     function alimentarClick() {
         setComida(Math.min(5, comida + 1));
@@ -28,26 +29,14 @@ export default function Emoji() {
     }
 
     function altenarLuzClick() {
-        console.log("Status: ", status);
-        console.log("Dead!");
-        setStatus("dead");
-        console.log("Status: ", status);
+        setLuz(!luz);
     }
 
     function cicloClick() {
-        switch (status) {
-            case "happy":
-                setStatus("sick");
-                break;
-            case "sick":
-                setStatus("dead");
-                break;
-            case "dead":
-                setStatus("happy");
-                break;
-            default:
-                setStatus("happy");
-                break;
+        if (luz) {
+            setEnergia(Math.max(0, energia - 1));
+        } else {
+            setEnergia(Math.min(5, energia + 1));
         }
     }
 
@@ -63,12 +52,11 @@ export default function Emoji() {
                 <Atributo icone="🔋" valor={energia} />
                 <Atributo icone="💧" valor={agua} />
                 <Atributo icone="🍗" valor={comida} />
-            </div>
+                {luz && "💡"} </div>
             <div className="acoes">
                 <button onClick={alimentarClick}>Alimentar</button>
                 <button onClick={hidratarClick}>Hidratar</button>
-                <button onClick={altenarLuzClick}>Ligar Luz</button>
-                <button onClick={cicloClick}>Ciclo</button>
+                <button onClick={altenarLuzClick}>{luz ? 'Desligar' : 'Ligar'} Luz</button>                <button onClick={cicloClick}>Ciclo</button>
             </div>
 
         </>
